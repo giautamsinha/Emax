@@ -1,0 +1,316 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% load static %}
+<!-- onchange="this.form.submit() -->
+<div class="content-wrapper">
+    <div class="content-header sty-one">
+        <!-- <h1 class="text-black">Select Course Type</h1> -->
+        <div class="row">
+            <div class="col-lg-2">
+                <!-- <form action="{% url 'studentList' %}" id="formid" method="post">
+          {% csrf_token %}
+        <select class="form-control" id="myselect" name="myselect">
+          <option value="" hidden>Select Course Here</option>
+          <option value="All">All</option>
+          <option value="ADCA">ADCA</option>
+          <option value="CCC">CCC</option>
+          <option value="BCA">BCA</option>
+        </select>
+      </form> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+
+        <div class="info-box">
+            <h4 class="text-black">Courses</h4>
+            <div class="m-b-3">
+            {% comment %} <button type="button" class="btn btn-lg btn-primary">Add Course</button> {% endcomment %}
+            <button type="button" class="btn btn-primary" id="viewclick" data-toggle="modal" data-target=".addCourse" >Add Course</button>
+              </div>
+            <div class="table-responsive">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Course ID</th>
+                            <th>Course Name</th>
+
+                            <th>Exam 1</th>
+                            <th>Exam 2</th>
+                            <th>Exam 3</th>
+                            <th>Exam 4</th>
+                            <th>Exam 5</th>
+                            <th>Exam 6</th>
+                            <th>Exam 7</th>
+                            <th>Exam 8</th>
+                            <th>Exam 9</th>
+                            <th>Exam 10</th>
+                            <th>Subject 1</th>
+                            <th>Subject 2</th>
+                            <th>Subject 3</th>
+                            <th>Subject 4</th>
+                            <th>Subject 5</th>
+                            <th>Subject 6</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in course %}
+                        <tr>
+                           
+                            <td>{{course.id}}</td>
+
+                            <td>{{course.courseName}}</td>
+                            <td>{{course.examName1}}</td>
+                            <td>{{course.examName2}}</td>
+                            <td>{{course.examName3}}</td>
+                            <td>{{course.examName4}}</td>
+                            <td>{{course.examName5}}</td>
+                            <td>{{course.examName6}}</td>
+                            <td>{{course.examName7}}</td>
+                            <td>{{course.examName8}}</td>
+                            <td>{{course.examName9}}</td>
+                            <td>{{course.examName10}}</td>
+                            <td>{{course.subjectName1}}</td>
+                            <td>{{course.subjectName2}}</td>
+                            <td>{{course.subjectName3}}</td>
+                            <td>{{course.subjectName4}}</td>
+                            <td>{{course.subjectName5}}</td>
+                            <td>{{course.subjectName6}}</td>
+
+                            <td>
+                                {% if course.status %}
+                                <span class="label label-success">Active</span>
+                                {% else %}
+                                <span class="label label-danger">De-Active</span>
+                                {% endif %}
+
+                            </td>
+                           
+                        </tr>
+                         {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Course ID</th>
+                            <th>Course Name</th>
+                            <th>Exam 1</th>
+                            <th>Exam 2</th>
+                            <th>Exam 3</th>
+                            <th>Exam 4</th>
+                            <th>Exam 5</th>
+                            <th>Exam 6</th>
+                            <th>Exam 7</th>
+                            <th>Exam 8</th>
+                            <th>Exam 9</th>
+                            <th>Exam 10</th>
+                            <th>Subject 1</th>
+                            <th>Subject 2</th>
+                            <th>Subject 3</th>
+                            <th>Subject 4</th>
+                            <th>Subject 5</th>
+                            <th>Subject 6</th>
+                            <th>Status</th>
+
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- view model -->
+
+<button type="button" class="btn btn-primary" id="viewclick" data-toggle="modal" data-target=".addCourse"
+    hidden></button>
+
+<div class="modal fade bd-example-modal-lg addCourse" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputCity">Course Name</label>
+                            <input type="text" class="form-control" id="coursename" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">Exam Name 1</label>
+                            <input type="text" class="form-control" id="examname1" >
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputZip">Exam Name 2</label>
+                            <input type="text" class="form-control" id="examname2" >
+                        </div>
+                    </div>
+                         <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputCity">Exam Name 3</label>
+                            <input type="text" class="form-control" id="examname3" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">Exam Name 4</label>
+                            <input type="text" class="form-control" id="examnmae4" >
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputZip">Exam Name 5</label>
+                            <input type="text" class="form-control" id="examname5" >
+                        </div>
+                    </div>
+                         <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputCity">Exam Name 6</label>
+                            <input type="text" class="form-control" id="examname6" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">Exam Name 7</label>
+                            <input type="text" class="form-control" id="examname7" >
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputZip">Exam Name 8</label>
+                            <input type="text" class="form-control" id="examname8" >
+                        </div>
+                    </div>
+                         <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputCity">Exam Name 9</label>
+                            <input type="text" class="form-control" id="examname9" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">Exam Name 10</label>
+                            <input type="text" class="form-control" id="examname10" >
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputZip">Subject Name 1</label>
+                            <input type="text" class="form-control" id="subjectname1" >
+                        </div>
+                    </div>     <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputCity">Subject Name 2</label>
+                            <input type="text" class="form-control" id="subjectname2" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">Subject Name 3</label>
+                            <input type="text" class="form-control" id="subjectname3" >
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputZip">Subject Name 4</label>
+                            <input type="text" class="form-control" id="subjectname4" >
+                        </div>
+                    </div>     <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputCity">Subject Name 5</label>
+                            <input type="text" class="form-control" id="subjectname5" >
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">Subject Name 6</label>
+                            <input type="text" class="form-control" id="subjectname6" >
+
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck">
+            <label class="form-check-label" for="gridCheck">
+              Check me out
+            </label>
+          </div>
+        </div> -->
+                    <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="createCourse" class="btn btn-primary">Submit</button> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end view model -->
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" id="editclick" data-toggle="modal"
+    data-target=".editstudentdetail"></button>
+
+<div class="modal fade bd-example-modal-lg editstudentdetail" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Student Name</label>
+                            <input type="text" class="form-control" id="editstudentname" placeholder="Student Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Student Father Name</label>
+                            <input type="text" class="form-control" id="studentfathername" placeholder="Father Name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Student Email</label>
+                            <input type="text" class="form-control" id="editstudentemail" placeholder="Student Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Student Number</label>
+                            <input type="text" class="form-control" id="editstudentnumber" placeholder="Father Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress">Student Address</label>
+                        <input type="text" class="form-control" id="editstudentaddress" placeholder="1234 Main St">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">Student Adharnumber</label>
+                            <input type="text" class="form-control" id="studentadharnumber">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">Student Course</label>
+                            <input type="text" class="form-control" id="studentcourse">
+
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">Student Fees</label>
+                            <input type="text" class="form-control" id="studentfees">
+                        </div>
+                    </div>
+                    <input type="hidden" name="updatestudentid" id="updatestudentid" value="">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="updateStudent" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+{% endblock %}

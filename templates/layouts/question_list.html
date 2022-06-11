@@ -1,0 +1,179 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% load static %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1 class="text-black">Question And Answer List</h1>
+      <ol class="breadcrumb">
+        <li><a href="{% url 'viewPdf' %}" class="btn btn-primary" style="color: rgb(249, 249, 252);"><i class="fa fa-check"></i>Genrate PDF File</a></li>
+      </ol>
+    </div>
+    
+    <!-- Main content -->
+    <div class="content">
+      <!-- <div class="info-box">
+      <h4 class="text-black">Data Export</h4> -->
+      <!-- <p>Export data to Copy, CSV, Excel, PDF & Print</p> -->
+      <!-- <div class="table-responsive">
+                  <table id="example2" class="table table-bordered table-hover" data-name="cool-table">
+                    <thead>
+                      <tr>
+                        <th>ID #</th>
+                        <th>Opended by</th>
+                        <th>Cust.Email</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                        <th>Assign to</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1001</td>
+                        <td>Alexander</td>
+                        <td>alexander@gmail.com</td>
+                        <td>Sed cursus dapibus diam</td>
+                        <td><span class="label label-success">Complete</span></td>
+                        <td>Pierce Sr.</td>
+                        <td>03-10-2017</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th>ID #</th>
+                        <th>Opended by</th>
+                        <th>Cust.Email</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                        <th>Assign to</th>
+                        <th>Date</th>
+                      </tr>
+                    </tfoot>
+                  </table>
+                  </div> -->
+      <!-- </div> -->
+      
+      <div class="info-box">
+      <h4 class="text-black">Exam Questions</h4>
+      <p>With Full Features</p>
+      <div class="table-responsive">
+                  <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Question</th>
+                  <th>Option A</th>
+                  <th>Option B</th>
+                  <th>Option C</th>
+                  <th>Option D</th>
+                  <th>Correct Answer</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for question in question_list %}
+                <tr>
+                 
+                  <td>{{ question.question | title}}</td>
+                  <td>{{ question.optionA | title }}</td>
+                  <td>{{ question.optionB | title }}</td>
+                  <td>{{ question.optionC | title }}</td>
+                  <td>{{ question.optionD | title }}</td>
+                  <td>{{ question.correctAnswer | title}}</td>
+                  <td>
+                    
+                    <ul class="list-inline m-0">
+                      <li class="list-inline-item">
+                          <button class="btn btn-primary btn-sm rounded-0 viewquestion"  type="button" data-toggle="tooltip"  data-questionid1="{{ question.id }}" data-placement="top" title="View"><i class="fa fa-list"></i></button>
+                      </li>
+                      <li class="list-inline-item">
+                          <button class="btn btn-success btn-sm rounded-0 editquestion" type="button" data-toggle="tooltip" data-questionid2="top" data-studentid2="{{ question.id }}" title="Edit"><i class="fa fa-edit"></i></button>
+                      </li>
+                      <li class="list-inline-item">
+                          <button class="btn btn-danger btn-sm rounded-0 deleteQuestion" type="button" data-toggle="tooltip" data-placement="top" data-questionid3="{{ question.id }}" title="Delete"><i class="fa fa-trash"></i></button>
+                      </li>
+                  </ul>
+                    <!-- <button  class="btn btn-sm btn-danger deleteQuestion" data-questionid="{{ question.id }}">Delete</button> -->
+                  </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Question</th>
+                    <th>Option A</th>
+                    <th>Option B</th>
+                    <th>Option C</th>
+                    <th>Option D</th>
+                    <th>Correct Answer</th>
+                    <th>Action</th>
+
+                </tr>
+                </tfoot>
+              </table>
+                  </div>
+      </div>
+    </div>
+    <!-- /.content --> 
+
+
+        <!-- view model -->
+        <div class="modal" id="viewQuestionModel">
+          <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title">Student detail</h5>
+                      <!-- <button type="button" class="close" data-dismiss="modal">
+                          <span>&times;</span>
+                      </button> -->
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label for="recipient-name"  class="col-form-label"><b>Queation:</b></label>
+                      <input type="text" id="question" readonly class="form-control" id="recipient-name">
+                    </div>
+                    <!-- <div class="form-group">
+                      <label for="recipient-name" class="col-form-label"><b>Father Name:</b></label>
+                      <input type="text" class="form-control" readonly id="recipient-name">
+                    </div> -->
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label"><b>Option A</b></label>
+                      <input type="text" id="optionA" class="form-control" readonly id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label"><b>Option B:</b></label>
+                      <input type="text" id="optionB" class="form-control" readonly id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label"><b>Option C:</b></label>
+                      <input type="text" id="optionC" class="form-control" readonly id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label"><b>Option D:</b></label>
+                      <input type="text" id="optionD" class="form-control" readonly id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label"><b>Correct:</b></label>
+                      <input type="text" id="correct" class="form-control" readonly id="recipient-name">
+                    </div>
+                    <!-- <div class="form-group">
+                      <label for="message-text" class="col-form-label">Message:</label>
+                      <textarea class="form-control" id="message-text"></textarea>
+                    </div> -->
+                  </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" id="viewQuestionModelClose" class="btn btn-danger">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <!-- view model end -->
+
+
+  </div>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+{% endblock %} 

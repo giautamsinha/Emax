@@ -1,0 +1,67 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% load static %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1 class="text-black">Exam List</h1>
+      <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="sub-bread"><i class="fa fa-angle-right"></i> Tables</li>
+        <li><i class="fa fa-angle-right"></i> Data Tables</li>
+      </ol>
+    </div>
+    
+    <!-- Main content -->
+    <div class="content">
+      <div class="info-box">
+      <!-- <h4 class="text-black">Exam List</h4> -->
+      <p>With Full Features</p>
+      <div class="table-responsive">
+                  <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Course Name</th>
+                  <th>Test Name</th>
+                  <th>Subject Name</th>
+                  <th>Marks</th>
+                  <th>Negative Marking</th>
+                  <th>Status</th>
+                  <!-- <th>Action</th> -->
+                </tr>
+                </thead>
+                <tbody>
+                    {% for exam in exam_list %}
+                <tr>
+                 
+                  <td>{{ exam.courseName | title}}</td>
+                  <td>{{ exam.testName | title }}</td>
+                  <td>{{ exam.subjectName | title }}</td>
+                  <td>{{ exam.marks | title }}</td>
+                  <td>{{ exam.negativeMarking | title }}</td>
+                  <td>{{ exam.status | title}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Test Name</th>
+                    <th>Subject Name</th>
+                    <th>Marks</th>
+                    <th>Negative Marking</th>
+                    <th>Status</th>
+
+                </tr>
+                </tfoot>
+              </table>
+                  </div>
+      </div>
+    </div>
+   
+  </div>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+{% endblock %} 

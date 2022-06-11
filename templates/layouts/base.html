@@ -1,0 +1,671 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from uxliner.com/niche/main/index3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 23 Apr 2022 09:00:04 GMT -->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Niche Admin - Powerful Bootstrap 4 Dashboard and Admin Template</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" />
+
+  <!-- v4.0.0-alpha.6 -->
+  <link rel="stylesheet" href="{% static 'accounts/bootstrap/css/bootstrap.min.css' %}">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'accounts/css/font-awesome/css/font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'accounts/css/et-line-font/et-line-font.css' %}">
+  <link rel="stylesheet" href="{% static 'accounts/css/themify-icons/themify-icons.css' %}">
+
+  <link rel="stylesheet" href="{% static 'accounts/plugins/datatables/css/dataTables.bootstrap.min.css' %}">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+
+  {% include "includes/header.html" %}
+
+
+  {% block content %}
+
+
+
+  {% endblock %}
+
+
+
+
+  {% include 'includes/footer.html' %}
+
+
+  <script src="{% static 'accounts/js/jquery.min.js' %}"></script>
+
+  <!-- v4.0.0-alpha.6 -->
+  <script src="{% static 'accounts/bootstrap/js/bootstrap.min.js' %}"></script>
+
+  <!-- template -->
+  <script src="{% static 'accounts/js/niche.js' %}"></script>
+
+  <!-- Chartjs JavaScript -->
+  <script src="{% static 'accounts/plugins/chartjs/chart.min.js' %}"></script>
+  <script src="{% static 'accounts/plugins/chartjs/chart-int.js' %}"></script>
+  <script src="{% static 'accounts/plugins/peity/jquery.peity.min.js' %}"></script>
+  <script src="{% static 'accounts/plugins/functions/jquery.peity.init.js' %}"></script>
+  <!-- Chart Peity JavaScript -->
+
+</body>
+
+<!-- Mirrored from uxliner.com/niche/main/index3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 23 Apr 2022 09:00:05 GMT -->
+
+</html>
+
+
+
+<!-- DataTable -->
+<script src="{% static 'accounts/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'accounts/plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    // var myTable =$('#example1').DataTable({
+    //   'paging': true,
+    //   'lengthChange': false,
+    //   'searching': true,
+    //   'ordering': true,
+    //   'info': true,
+    //   'filter': true,
+    //   'autoWidth': false
+    // })
+
+//     myTable
+// .columns()
+// .flatten()
+// .each(function (colID) {
+
+//   // Create the select list in the
+//   // header column header
+//   // On change of the list values,
+//   // perform search operation
+//   var mySelectList = $("<select />")
+//   .appendTo(myTable.column(colID).header())
+//   .on("change", function () {
+//     myTable.column(colID).search($(this).val());
+
+//     // update the changes using draw() method
+//     myTable.column(colID).draw();
+//   });
+
+//   // Get the search cached data for the
+//   // first column add to the select list
+//   // using append() method
+//   // sort the data to display to user
+//   // all steps are done for EACH column
+//   myTable
+//   .column(colID)
+//   .cache("search")
+//   .sort()
+//   .each(function (param) {
+//     mySelectList.append(
+//     $('<option value="' + param + '">'
+//       + param + "</option>")
+//     );
+//   });
+// });
+  })
+
+</script>
+<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'accounts/plugins/table-expo/filesaver.min.js' %}"></script>
+<script src="{% static 'accounts/plugins/table-expo/xls.core.min.js' %}"></script>
+<script src="{% static 'accounts/plugins/table-expo/tableexport.js' %}"></script>
+
+<script>
+  $("table").tableExport({ formats: ["xlsx", "xls", "csv", "txt"], });
+</script>
+
+<script type="text/javascript">
+  $('.statusChange').click(function () {
+    var catid = $(this).attr("data-catid");
+    var status = "activate";
+    $.ajax(
+      {
+        type: "POST",
+        url: "changeStatus",
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        data: {
+          student_id: catid,
+          status: status
+        },
+        success: function (response) {
+          if (response) {
+            // swal("Done!", "Student status change to Active!", "success");
+            swal({
+              title: "Done!",
+              text: "Student status change to Active!",
+              icon: "success",
+              button: "Ok!",
+            }).then((result) => {
+              location.reload();
+            });
+          }
+        }
+      })
+  });
+
+  $('.statusChangedeactive').click(function () {
+    var catid = $(this).attr("data-catid2");
+    var status = "deactivate";
+    $.ajax(
+      {
+        type: "POST",
+        url: "changeStatus",
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        data: {
+          student_id: catid,
+          status: status
+        },
+        success: function (response) {
+          if (response) {
+            // swal("Done!", "Student status change to Deactive", "success");
+            // location.reload();
+            swal({
+              title: "Done!",
+              text: "Student status change to Deactive!",
+              icon: "success",
+              button: "Ok!",
+            }).then((result) => {
+              location.reload();
+            });
+          }
+        }
+      })
+  });
+
+  $('.deleteQuestion').click(function () {
+    var catid = $(this).attr("data-questionid3");
+    $.ajax(
+      {
+        type: "POST",
+        url: "{% url 'actionOnQuestion' %}",
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        data: {
+          question_id: catid,
+
+        },
+        success: function (response) {
+          if (response) {
+            // swal("Done!", "Student status change to Deactive", "success");
+            // location.reload();
+            swal({
+              title: "Done!",
+              text: "Question deleted !",
+              icon: "success",
+              button: "Ok!",
+            }).then((result) => {
+              location.reload();
+            });
+          }
+        }
+      })
+  });
+
+  $('.viewfunction').click(function () {
+ 
+  
+
+    var catid = $(this).attr("data-studentid1");
+
+    $.ajax(
+      {
+        type: "POST",
+        url: "{% url 'viewStudentDetails' %}",
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        data: {
+          student_id: catid,
+
+        },
+        dataType: 'json',
+        success: function (response) {
+          if (response) {
+            data = response.user
+            for (i = 0; i < data.length; i++) {
+
+              console.log(data)
+              name = data[i].name
+
+              $('#studentname').val(name.toUpperCase());
+              $('#studentnumber').val(data[i].phone);
+              $('#studentemail').val(data[i].email);
+              $('#studentaddress').val(data[i].address);
+              // $('#studentzipcode').val(data[i].zipcode);
+              $('#studentfathername').val(data[i].fatherName);
+              $('#studentadharnumber').val(data[i].addharNumber);
+              $('#studentcourse').val(data[i].course);
+              $('#studentfees').val(data[i].fees);
+
+
+            }
+            $('#viewclick').click()
+          }
+
+
+        }
+      })
+  });
+
+  $('#viewModelClose').click(function () {
+    $('#viewModel').hide()
+
+  });
+
+
+
+
+
+  $('.editfunction').click(function () {
+
+    var catid = $(this).attr("data-studentid2");
+
+    $.ajax(
+      {
+        type: "POST",
+        url: "{% url 'viewStudentDetails' %}",
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        data: {
+          student_id: catid,
+
+        },
+        dataType: 'json',
+        success: function (response) {
+          if (response) {
+            data = response.user
+            for (i = 0; i < data.length; i++) {
+
+              name = data[i].name
+
+              $('#editstudentname').val(name.toUpperCase());
+              $('#editstudentnumber').val(data[i].phone);
+              $('#editstudentemail').val(data[i].email);
+              $('#editstudentaddress').val(data[i].address);
+              $('#editstudentzipcode').val(data[i].zipcode);
+              $('#updatestudentid').val(data[i].id);
+
+
+              $('#editclick').click()
+            }
+          }
+
+
+        }
+      })
+  });
+
+
+
+  $('#updateStudent').click(function () {
+    var catid = $('#updatestudentid').val()
+    var name = $('#editstudentname').val()
+    var number = $('#editstudentnumber').val()
+    var email = $('#editstudentemail').val()
+    var address = $('#editstudentaddress').val()
+    // var zipcode = $('#editstudentzipcode').val()
+
+    if (catid) {
+      $.ajax(
+        {
+          type: "POST",
+          url: "{% url 'updateStudentDetails' %}",
+          headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+          data: {
+            student_id: catid,
+            name: name,
+            number: number,
+            email: email,
+            address: address,
+            // zipcode: zipcode,
+          },
+          success: function (response) {
+            // console.log(response)
+            if (response) {
+              swal.fire({
+                title: "Done!",
+                text: "Student detail updated !",
+                icon: "success",
+                button: "Ok!",
+              }).then((result) => {
+                location.reload();
+              });
+
+            }
+
+
+          }
+        })
+    }
+  });
+
+
+  $('#editModelClose').click(function () {
+
+    $('#editModel').hide()
+  });
+
+
+  $('.deletefunction').click(function () {
+
+    var catid = $(this).attr("data-studentid3");
+    if (catid) {
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes, I am sure!',
+        cancelButtonText: "No, cancel it!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          $.ajax(
+            {
+              type: "POST",
+              url: "{% url 'deleteStudent' %}",
+              headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+              data: {
+                student_id: catid,
+              },
+              success: function (response) {
+                // console.log(response)
+                if (response) {
+                  Swal.fire("Deleted!", "Student deleted successfully ", "success").then((result) => {
+                    location.reload();
+                  });
+
+
+                  // swal({
+                  //       title: "Done!",
+                  //       text: "Student Deleted !",
+                  //       icon: "success",
+                  //       button: "Ok!",
+                  //     }).then((result) => {
+                  //       location.reload();
+                  //     });
+
+                }
+              }
+            })
+          // update the data-flag to 1 (as true), to submit
+
+        } else {
+          Swal.fire("Cancelled", "Transaction didn't submitted", "error");
+        }
+      })
+
+
+    }
+  });
+
+
+
+  $('.viewquestion').click(function () {
+
+    var catid = $(this).attr("data-questionid1");
+
+    $.ajax(
+      {
+        type: "POST",
+        url: "{% url 'viewQuestion' %}",
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        data: {
+          question_id: catid,
+
+        },
+        dataType: 'json',
+        success: function (response) {
+          if (response) {
+            data = response.questions
+            for (i = 0; i < data.length; i++) {
+              $('#question').val(data[i].question);
+              $('#optionA').val(data[i].optionA);
+              $('#optionB').val(data[i].optionB);
+              $('#optionC').val(data[i].optionC);
+              $('#optionD').val(data[i].optionD);
+              $('#correct').val(data[i].correctAnswer);
+
+
+              $('#viewQuestionModel').show()
+            }
+          }
+
+
+        }
+      })
+  });
+
+  $('#viewModelClose').click(function () {
+    $('#viewModel').hide()
+
+  });
+
+
+  $('#viewQuestionModelClose').click(function () {
+    $('#viewQuestionModel').hide()
+
+  });
+
+  $('#selectCourseName').on('change', function () {
+    var id = this.value;
+    var name = $("#selectCourseName option:selected").text();
+    $("#coursename").val(name);
+    $.ajax(
+      {
+        type: "POST",
+        url: "{% url 'exam' %}",
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        data: {
+          id: id,
+
+        },
+
+        success: function (response) {
+          data = response.examcourse
+          for (i = 0; i < data.length; i++) {
+
+            if (data[i].examName1) {
+              $('#select1').append(new Option(data[i].examName1, data[i].examName1));
+            } if (data[i].examName2) {
+              $('#select1').append(new Option(data[i].examName2, data[i].examName2));
+            } if (data[i].examName3) {
+              $('#select1').append(new Option(data[i].examName3, data[i].examName3));
+            } if (data[i].examName4) {
+              $('#select1').append(new Option(data[i].examName4, data[i].examName4));
+            } if (data[i].examName5) {
+              $('#select1').append(new Option(data[i].examName5, data[i].examName5));
+            } if (data[i].examName6) {
+              $('#select1').append(new Option(data[i].examName6, data[i].examName6));
+            } if (data[i].examName7) {
+              $('#select1').append(new Option(data[i].examName7, data[i].examName7));
+            } if (data[i].examName8) {
+              $('#select1').append(new Option(data[i].examName8, data[i].examName8));
+            } if (data[i].examName9) {
+              $('#select1').append(new Option(data[i].examName9, data[i].examName9));
+            } if (data[i].examName10) {
+              $('#select1').append(new Option(data[i].examName10, data[i].examName10));
+            }
+
+            if (data[i].subjectName1) {
+              $('#select2').append(new Option(data[i].subjectName1, data[i].subjectName1));
+            } if (data[i].subjectName2) {
+              $('#select2').append(new Option(data[i].subjectName2, data[i].subjectName2));
+            } if (data[i].subjectName3) {
+              $('#select2').append(new Option(data[i].subjectName3, data[i].subjectName3));
+            } if (data[i].subjectName4) {
+              $('#select2').append(new Option(data[i].subjectName4, data[i].subjectName4));
+            } if (data[i].subjectName5) {
+              $('#select2').append(new Option(data[i].subjectName5, data[i].subjectName5));
+            } if (data[i].subjectName6) {
+              $('#select2').append(new Option(data[i].subjectName6, data[i].subjectName6));
+            }
+          }
+
+        }
+      })
+
+  });
+
+
+  $('.hidefunction').click(function () {
+
+    var catid = $(this).attr("data-studentid4");
+    if (catid) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes, I am sure!',
+        cancelButtonText: "No, cancel it!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax(
+            {
+              type: "POST",
+              url: "{% url 'hideStudent' %}",
+              headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+              data: {
+                student_id: catid,
+              },
+              success: function (response) {
+                // console.log(response)
+                if (response) {
+                  Swal.fire("HIde!", "Student Hide successfully ", "success").then((result) => {
+                    location.reload();
+                  });
+
+
+                  // swal({
+                  //       title: "Done!",
+                  //       text: "Student Deleted !",
+                  //       icon: "success",
+                  //       button: "Ok!",
+                  //     }).then((result) => {
+                  //       location.reload();
+                  //     });
+
+                }
+              }
+            })
+
+        } else {
+          Swal.fire("Cancelled", "Transaction didn't submitted", "error");
+        }
+      })
+    }
+
+
+  });
+
+
+  $('#myselect').on('change', function(){
+    var value = this.value;
+    if(value != ""){
+     $(this).closest('#formid').submit();
+      
+    }
+});
+
+
+$('#createCourse').click(function () {
+    let coursename = $('#coursename').val()
+    let examname1 = $('#examname1').val()
+    let examname2 = $('#examname2').val()
+    let examname3 = $('#examname3').val()
+
+    let examname4 = $('#examname4').val()
+    let examname5 = $('#examname5').val()
+    let examname6 = $('#examname6').val()
+    let examname7 = $('#examname7').val()
+
+    let examname8 = $('#examname8').val()
+    let examname9 = $('#examname9').val()
+    let examname10 = $('#examname10').val()
+    
+    let subjectname1 = $('#subjectname1').val()
+    let subjectname2 = $('#subjectname2').val()
+    let subjectname3 = $('#subjectname3').val()
+    let subjectname4 = $('#subjectname4').val()
+    let subjectname5 = $('#subjectname5').val()
+    let subjectname6 = $('#subjectname6').val()
+
+    if (coursename !="" &&  examname1 !="" &&  examname2 !="" &&  examname3 !="" &&   examname4 !="" &&  examname5 !="" &&  examname6 !="" &&  examname7 !="" &&  examname8 !="" && examname9 !="" &&  examname10 !="" &&   subjectname1  !="" &&  subjectname2 !="" &&  subjectname3 !="" &&   subjectname4 !="" &&  subjectname5 !="" &&  subjectname6 ) 
+    {
+      $.ajax(
+        {
+          type: "POST",
+          url: "{% url 'addcourse' %}",
+          headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+          data: {
+            coursename: coursename,
+            examname1: examname1,
+            examname2: examname2,
+            examname3: examname3,
+            examname4: examname4,
+            examname5: examname5,
+            examname6: examname6,
+            examname7: examname7,
+            examname8: examname8,
+            examname9: examname9,
+            examname10: examname10,
+            subjectname1: subjectname1,
+            subjectname2: subjectname2,
+            subjectname3: subjectname3,
+            subjectname4: subjectname4,
+            subjectname5: subjectname5,
+            subjectname6: subjectname6,
+
+
+          },
+          success: function (response) {
+            // console.log(response)
+            if (response) {
+              swal.fire({
+                title: "Done!",
+                text: "Student detail updated !",
+                icon: "success",
+                button: "Ok!",
+              }).then((result) => {
+                location.reload();
+              });
+
+            }
+
+
+          }
+        })
+    }
+  });
+
+
+
+</script>

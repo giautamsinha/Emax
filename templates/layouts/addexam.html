@@ -1,0 +1,119 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% load static %}
+
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+ 
+    </div>
+   
+    <!-- Main content -->
+    {% if messages %}
+    {% for message in messages %}
+    <!-- <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }} 3</li> -->
+    <!-- <div class="alert alert-success" role="alert">  </div> -->
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert"> <strong>Greating !</strong> {{ message }} 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+      </div>
+      {% endif %}
+    {% endfor %}
+{% endif %}
+    <div class="card">
+        <div class="card-header bg-blue">
+          <h5 class="m-b-0">Add Exam</h5>
+        </div>
+
+        <div class="card-body">
+          <form action="{% url 'addexam' %}" method="post" class="form-horizontal form-bordered">
+            {% csrf_token %}
+            <div class="form-body">
+              <div class="form-group row">
+                <label class="control-label text-right col-md-3">Course Name</label>
+                <div class="col-md-9">
+                    <select class="form-control custom-select" name="courseid" id="selectCourseName">
+                        <option hidden>Select Course</option>
+                       {% for course in course %}
+                        <option value="{{course.id}}">{{ course.courseName }} </option> 
+                       {% endfor %} 
+                      </select>
+                  </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label text-right col-md-3">Test Type</label>
+                <div class="col-md-9">
+                    <select id="select1" name="test" class="form-control custom-select">
+                    <option hidden>Select Test Type</option>
+              
+                      </select>
+                  </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label text-right col-md-3">Subject Name</label>
+                <div class="col-md-9">
+                  <select id="select2" name="subject" class="form-control custom-select">
+                    <option hidden>Select Subject Name</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label text-right col-md-3">Exam Date</label>
+                <div class="col-md-9">
+                  <input class="form-control" placeholder="dd/mm/yyyy" name="datetime" type="datetime-local">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label text-right col-md-3">Marks</label>
+                <div class="col-md-9">
+                  <input class="form-control" name="marks" type="text">
+                </div>
+              </div>
+              <!-- <div class="form-group row">
+           
+                <label  class="control-label text-right col-md-3"> Negative Marking </label>
+                <div class="col-md-9"> 
+                <input type="checkbox" name="negativemarking">
+                  
+              </div>
+            </div> -->
+            <div class="form-group row">
+              <label class="control-label text-right col-md-3">Negative Marking</label>
+              <div class="col-md-9">
+                <select id="select2" name="negativemarking" class="form-control custom-select">
+                  <option hidden value="0">Negative Marking</option>
+                  <option value="1/2">Negative Marking 1/2</option>
+                  <option value="1/3">Negative Marking 1/3</option>
+                  <option value="1/4s">Negative Marking 1/4</option>
+
+                </select>
+              </div>
+            </div>
+            <input type="hidden" id="coursename" name="coursename">
+     
+            </div>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="offset-sm-3 col-md-9">
+                      <button type="submit" class="btn btn-success"> Submit</button>
+                      <button type="button" class="btn btn-inverse">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+
+
+
+    <!-- /.content --> 
+  </div>
+
+{% endblock %} 
